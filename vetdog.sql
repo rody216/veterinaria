@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-12-2021 a las 06:06:43
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 7.3.31
+-- Tiempo de generación: 28-10-2023 a las 21:46:23
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,13 +29,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `business` (
   `id_buss` int(11) NOT NULL,
-  `noemp` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `ruc` char(14) COLLATE utf8_unicode_ci NOT NULL,
-  `direcc` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `correo` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
-  `telef` char(9) COLLATE utf8_unicode_ci NOT NULL,
-  `descp` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `foto` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `noemp` varchar(40) NOT NULL,
+  `ruc` char(14) NOT NULL,
+  `direcc` varchar(50) NOT NULL,
+  `correo` varchar(35) NOT NULL,
+  `telef` char(9) NOT NULL,
+  `descp` varchar(150) NOT NULL,
+  `foto` varchar(255) NOT NULL,
   `fecre` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -44,7 +44,7 @@ CREATE TABLE `business` (
 --
 
 INSERT INTO `business` (`id_buss`, `noemp`, `ruc`, `direcc`, `correo`, `telef`, `descp`, `foto`, `fecre`) VALUES
-(1, 'VET-DOG', '01234567678987', 'Lima,Perú', 'unprogramadormas@gmail.com', '998786765', 'Rubro de Veterinaria', 'lll.png', '2021-12-26 04:20:21');
+(1, 'migatito', '8927456', 'monteria colombia', 'migatito@gmail.com', '00112233', 'Rubro de Veterinaria', '', '2023-10-28 19:08:41');
 
 -- --------------------------------------------------------
 
@@ -54,7 +54,7 @@ INSERT INTO `business` (`id_buss`, `noemp`, `ruc`, `direcc`, `correo`, `telef`, 
 
 CREATE TABLE `cargo` (
   `id` int(11) NOT NULL,
-  `descripcion` varchar(25) COLLATE utf8_unicode_ci NOT NULL
+  `descripcion` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -74,8 +74,8 @@ INSERT INTO `cargo` (`id`, `descripcion`) VALUES
 
 CREATE TABLE `category` (
   `id_cate` int(11) NOT NULL,
-  `nomcate` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `nomcate` varchar(50) NOT NULL,
+  `estado` char(1) NOT NULL,
   `fere` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -128,11 +128,11 @@ INSERT INTO `category` (`id_cate`, `nomcate`, `estado`, `fere`) VALUES
 CREATE TABLE `compra` (
   `id_compra` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `estado` char(1) NOT NULL,
   `id_prove` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
-  `tipoc` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `tipopa` varchar(15) COLLATE utf8_unicode_ci NOT NULL
+  `tipoc` varchar(25) NOT NULL,
+  `tipopa` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -140,14 +140,14 @@ CREATE TABLE `compra` (
 --
 
 INSERT INTO `compra` (`id_compra`, `fecha`, `estado`, `id_prove`, `total`, `tipoc`, `tipopa`) VALUES
-(1, '2021-12-22', '0', 6, '31.00', 'Ticket', 'Contado'),
-(2, '2021-12-22', '1', 3, '75.00', 'Factura', 'Contado'),
-(3, '2021-12-10', '1', 2, '195.00', 'Factura', 'Credito'),
-(4, '2021-12-06', '1', 1, '31.00', 'Boleta', 'Contado'),
-(5, '2021-12-23', '1', 12, '60.00', 'Ticket', 'Credito'),
-(6, '2021-12-23', '1', 13, '15.00', 'Boleta', 'Contado'),
-(7, '2021-12-24', '1', 13, '382.00', 'Boleta', 'Contado'),
-(8, '2021-12-25', '1', 13, '351.00', 'Boleta', 'Contado');
+(1, '2021-12-22', '0', 6, 31.00, 'Ticket', 'Contado'),
+(2, '2021-12-22', '1', 3, 75.00, 'Factura', 'Contado'),
+(3, '2021-12-10', '1', 2, 195.00, 'Factura', 'Credito'),
+(4, '2021-12-06', '1', 1, 31.00, 'Boleta', 'Contado'),
+(5, '2021-12-23', '1', 12, 60.00, 'Ticket', 'Credito'),
+(6, '2021-12-23', '1', 13, 15.00, 'Boleta', 'Contado'),
+(7, '2021-12-24', '1', 13, 382.00, 'Boleta', 'Contado'),
+(8, '2021-12-25', '1', 13, 351.00, 'Boleta', 'Contado');
 
 -- --------------------------------------------------------
 
@@ -157,17 +157,17 @@ INSERT INTO `compra` (`id_compra`, `fecha`, `estado`, `id_prove`, `total`, `tipo
 
 CREATE TABLE `historycli` (
   `id_history` int(11) NOT NULL,
-  `codigo` char(6) COLLATE utf8_unicode_ci NOT NULL,
+  `codigo` char(6) NOT NULL,
   `id_vet` int(11) NOT NULL,
   `id_pet` int(11) NOT NULL,
   `id_due` int(11) NOT NULL,
-  `moti` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `enfer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `ante` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `diag` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `anali` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `plan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `moti` varchar(255) NOT NULL,
+  `enfer` varchar(255) NOT NULL,
+  `ante` varchar(255) NOT NULL,
+  `diag` varchar(255) NOT NULL,
+  `anali` varchar(255) NOT NULL,
+  `plan` varchar(255) NOT NULL,
+  `estado` char(1) NOT NULL,
   `fecre` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -179,19 +179,19 @@ CREATE TABLE `historycli` (
 
 CREATE TABLE `owner` (
   `id_due` int(11) NOT NULL,
-  `dni_due` char(8) COLLATE utf8_unicode_ci NOT NULL,
-  `nom_due` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
-  `ape_due` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
-  `fecnaci` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
-  `movil` char(9) COLLATE utf8_unicode_ci NOT NULL,
-  `fijo` char(6) COLLATE utf8_unicode_ci NOT NULL,
-  `correo` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `direc` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
-  `usuario` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `contra` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `dni_due` char(8) NOT NULL,
+  `nom_due` varchar(35) NOT NULL,
+  `ape_due` varchar(35) NOT NULL,
+  `fecnaci` varchar(35) NOT NULL,
+  `movil` char(9) NOT NULL,
+  `fijo` char(6) NOT NULL,
+  `correo` varchar(30) NOT NULL,
+  `direc` varchar(150) NOT NULL,
+  `estado` char(1) NOT NULL,
+  `usuario` varchar(25) NOT NULL,
+  `contra` varchar(255) NOT NULL,
   `cargo` int(11) NOT NULL,
-  `foto` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `foto` varchar(255) NOT NULL,
   `fere` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -218,16 +218,16 @@ INSERT INTO `owner` (`id_due`, `dni_due`, `nom_due`, `ape_due`, `fecnaci`, `movi
 
 CREATE TABLE `pet` (
   `id_pet` int(11) NOT NULL,
-  `nomas` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `nomas` varchar(50) NOT NULL,
   `id_tiM` int(11) NOT NULL,
   `id_raza` int(11) NOT NULL,
-  `sexo` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `edad` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `tamano` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `peso` char(6) COLLATE utf8_unicode_ci NOT NULL,
+  `sexo` varchar(15) NOT NULL,
+  `edad` varchar(15) NOT NULL,
+  `tamano` varchar(15) NOT NULL,
+  `peso` char(6) NOT NULL,
   `id_due` int(11) NOT NULL,
-  `obser` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `obser` varchar(255) NOT NULL,
+  `estado` char(1) NOT NULL,
   `fere` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -249,8 +249,8 @@ INSERT INTO `pet` (`id_pet`, `nomas`, `id_tiM`, `id_raza`, `sexo`, `edad`, `tama
 
 CREATE TABLE `pet_type` (
   `id_tiM` int(11) NOT NULL,
-  `noTiM` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `noTiM` varchar(35) NOT NULL,
+  `estado` char(1) NOT NULL,
   `fere` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -331,17 +331,17 @@ INSERT INTO `productos_vendidos` (`id_pvendi`, `id_prod`, `canti`, `id_venta`) V
 
 CREATE TABLE `products` (
   `id_prod` int(11) NOT NULL,
-  `codigo` char(14) COLLATE utf8_unicode_ci NOT NULL,
+  `codigo` char(14) NOT NULL,
   `id_cate` int(11) NOT NULL,
-  `foto` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `nompro` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `peso` char(5) COLLATE utf8_unicode_ci NOT NULL,
+  `foto` varchar(255) NOT NULL,
+  `nompro` varchar(100) NOT NULL,
+  `peso` char(5) NOT NULL,
   `id_prove` int(11) NOT NULL,
-  `descp` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `descp` varchar(255) NOT NULL,
   `preciC` decimal(10,2) NOT NULL,
   `precV` decimal(10,2) NOT NULL,
-  `stock` char(4) COLLATE utf8_unicode_ci NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `stock` char(4) NOT NULL,
+  `estado` char(1) NOT NULL,
   `fere` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -350,12 +350,12 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id_prod`, `codigo`, `id_cate`, `foto`, `nompro`, `peso`, `id_prove`, `descp`, `preciC`, `precV`, `stock`, `estado`, `fere`) VALUES
-(1, '00000001', 2, 'collar1.jpeg', 'Julius K9 Collar de Adiestramiento Cordino', '90 GR', 2, 'El collar cordino Julius K9 es la elección perfecta para entrenamientos en lugar de collares. Hecho de cordón textil rígido de 3,5 mm, utilizado frecuentemente por entrenadores de perros para perros agresivos o perros en pánico. Recomendado para usar con ', '31.00', '21.00', '103', '1', '2021-12-26 04:59:43'),
-(2, '00000002', 7, 'anti.jpg', 'Specialcan Insecticida Ambiental Perros Y Gatos 250 Ml', '250ml', 1, 'Specialcan Insecticida Ambiental Perros Y Gatos 250 Ml.', '21.00', '35.00', '37', '1', '2021-12-26 05:02:49'),
-(3, '00000003', 6, 'snac.jpg', 'Apetitus Galletas Vainilla Biscuits', '500GR', 1, 'Las Galletas Vainilla Biscuits de Apetitus son snacks para perro para dar como premio o recompensa en cualquier momento del día como parte de una dieta equilibrada. Su calidad se obtiene gracias a los ingredientes y al Bakery Selection', '65.00', '35.00', '30', '1', '2021-12-26 04:59:44'),
-(5, '00000007', 7, 'anti2.jpg', 'Bayer Advantage Pipeta Gato 0-4 kg.', '80', 3, 'Advantage® Spot-On es una solución de Imidacloprid lista para su aplicación tópica sobre la piel del gato. Mata las pulgas dentro de las 24 horas de aplicado. Previene las re-infestaciones por hasta 1 mes. De muy fácil aplicación es ideal para evitar el e', '20.00', '30.00', '93', '1', '2021-12-26 02:37:00'),
-(8, '00000009', 14, 'omidaanimal.jpg', 'COMIDA PARA PERRO POLLO Y VEGETALES', '374 g', 1, 'Hecho con ingredientes de fibras naturales', '5.00', '10.00', '98', '1', '2021-12-26 05:02:50'),
-(9, '12959031410057', 3, '', 'Ejemplo de otro producto', '33', 3, 'esto es una descripcion de un producto', '20.00', '5.00', '98', '1', '2021-12-25 05:30:54');
+(1, '00000001', 2, 'collar1.jpeg', 'Julius K9 Collar de Adiestramiento Cordino', '90 GR', 2, 'El collar cordino Julius K9 es la elección perfecta para entrenamientos en lugar de collares. Hecho de cordón textil rígido de 3,5 mm, utilizado frecuentemente por entrenadores de perros para perros agresivos o perros en pánico. Recomendado para usar con ', 31.00, 21.00, '103', '1', '2021-12-26 04:59:43'),
+(2, '00000002', 7, 'anti.jpg', 'Specialcan Insecticida Ambiental Perros Y Gatos 250 Ml', '250ml', 1, 'Specialcan Insecticida Ambiental Perros Y Gatos 250 Ml.', 21.00, 35.00, '37', '1', '2021-12-26 05:02:49'),
+(3, '00000003', 6, 'snac.jpg', 'Apetitus Galletas Vainilla Biscuits', '500GR', 1, 'Las Galletas Vainilla Biscuits de Apetitus son snacks para perro para dar como premio o recompensa en cualquier momento del día como parte de una dieta equilibrada. Su calidad se obtiene gracias a los ingredientes y al Bakery Selection', 65.00, 35.00, '30', '1', '2021-12-26 04:59:44'),
+(5, '00000007', 7, 'anti2.jpg', 'Bayer Advantage Pipeta Gato 0-4 kg.', '80', 3, 'Advantage® Spot-On es una solución de Imidacloprid lista para su aplicación tópica sobre la piel del gato. Mata las pulgas dentro de las 24 horas de aplicado. Previene las re-infestaciones por hasta 1 mes. De muy fácil aplicación es ideal para evitar el e', 20.00, 30.00, '93', '1', '2021-12-26 02:37:00'),
+(8, '00000009', 14, 'omidaanimal.jpg', 'COMIDA PARA PERRO POLLO Y VEGETALES', '374 g', 1, 'Hecho con ingredientes de fibras naturales', 5.00, 10.00, '98', '1', '2021-12-26 05:02:50'),
+(9, '12959031410057', 3, '', 'Ejemplo de otro producto', '33', 3, 'esto es una descripcion de un producto', 20.00, 5.00, '98', '1', '2021-12-25 05:30:54');
 
 -- --------------------------------------------------------
 
@@ -368,13 +368,13 @@ CREATE TABLE `quotes` (
   `id_vet` int(11) NOT NULL,
   `id_tiM` int(11) NOT NULL,
   `id_servi` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `nommas` varchar(90) COLLATE utf8_unicode_ci NOT NULL,
-  `dueno` varchar(90) COLLATE utf8_unicode_ci NOT NULL,
-  `color` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `nommas` varchar(90) NOT NULL,
+  `dueno` varchar(90) NOT NULL,
+  `color` varchar(25) NOT NULL,
   `start` datetime NOT NULL,
   `end` datetime DEFAULT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `estado` char(1) NOT NULL,
   `precio` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -383,10 +383,10 @@ CREATE TABLE `quotes` (
 --
 
 INSERT INTO `quotes` (`id`, `id_vet`, `id_tiM`, `id_servi`, `title`, `nommas`, `dueno`, `color`, `start`, `end`, `estado`, `precio`) VALUES
-(1, 1, 2, 1, 'EJEMPLO DE CITA', 'pelusa', 'Sebastian Yatra', '#ff0000', '2021-12-20 13:00:00', '2021-12-20 14:00:00', '1', '120.00'),
-(3, 8, 2, 2, 'Ejemplo de cita 222', 'Violeta', 'Luis Sebastian Rumina', '#66ff00', '2021-12-22 15:00:00', '2021-12-22 16:00:00', '1', '80.00'),
-(4, 8, 2, 4, 'cita numero 3', 'Linos', 'Mauricio Carbajal', '#66ff00', '2021-12-21 09:00:00', '2021-12-21 10:00:00', '0', '80.00'),
-(5, 1, 2, 1, 'cita de ejemploss', 'Pelusa', 'Jose Torres', '#ff0000', '2021-12-27 09:00:00', '2021-12-27 10:00:00', '0', '50.00');
+(1, 1, 2, 1, 'EJEMPLO DE CITA', 'pelusa', 'Sebastian Yatra', '#ff0000', '2021-12-20 13:00:00', '2021-12-20 14:00:00', '1', 120.00),
+(3, 8, 2, 2, 'Ejemplo de cita 222', 'Violeta', 'Luis Sebastian Rumina', '#66ff00', '2021-12-22 15:00:00', '2021-12-22 16:00:00', '1', 80.00),
+(4, 8, 2, 4, 'cita numero 3', 'Linos', 'Mauricio Carbajal', '#66ff00', '2021-12-21 09:00:00', '2021-12-21 10:00:00', '0', 80.00),
+(5, 1, 2, 1, 'cita de ejemploss', 'Pelusa', 'Jose Torres', '#ff0000', '2021-12-27 09:00:00', '2021-12-27 10:00:00', '0', 50.00);
 
 -- --------------------------------------------------------
 
@@ -396,9 +396,9 @@ INSERT INTO `quotes` (`id`, `id_vet`, `id_tiM`, `id_servi`, `title`, `nommas`, `
 
 CREATE TABLE `raza` (
   `id_raza` int(11) NOT NULL,
-  `nomraza` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `nomraza` varchar(50) NOT NULL,
   `id_tiM` int(11) NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL
+  `estado` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -423,8 +423,8 @@ INSERT INTO `raza` (`id_raza`, `nomraza`, `id_tiM`, `estado`) VALUES
 
 CREATE TABLE `service` (
   `id_servi` int(11) NOT NULL,
-  `nomser` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `nomser` varchar(100) NOT NULL,
+  `estado` char(1) NOT NULL,
   `fere` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -448,13 +448,13 @@ INSERT INTO `service` (`id_servi`, `nomser`, `estado`, `fere`) VALUES
 
 CREATE TABLE `supplier` (
   `id_prove` int(11) NOT NULL,
-  `nomprove` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `ruc` char(14) COLLATE utf8_unicode_ci NOT NULL,
-  `direcc` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `pais` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `tele` char(12) COLLATE utf8_unicode_ci NOT NULL,
-  `corre` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `nomprove` varchar(255) NOT NULL,
+  `ruc` char(14) NOT NULL,
+  `direcc` varchar(200) NOT NULL,
+  `pais` varchar(50) NOT NULL,
+  `tele` char(12) NOT NULL,
+  `corre` varchar(35) NOT NULL,
+  `estado` char(1) NOT NULL,
   `fere` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -480,12 +480,12 @@ INSERT INTO `supplier` (`id_prove`, `nomprove`, `ruc`, `direcc`, `pais`, `tele`,
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `usuario` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `correo` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `contra` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `correo` varchar(150) NOT NULL,
+  `contra` varchar(255) NOT NULL,
   `cargo` int(11) NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `estado` char(1) NOT NULL,
   `fecre` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -494,7 +494,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `correo`, `contra`, `cargo`, `estado`, `fecre`) VALUES
-(1, 'Jordan Roke Seminario', 'jjroker', 'jjroker@ucv.edu.pe', 'b0baee9d279d34fa1dfd71aadb908c3f', 1, '1', '2021-12-04 00:54:56');
+(1, 'Rodolfo Alvarez', 'admin', 'rody216@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 1, '1', '2023-10-28 05:56:43');
 
 -- --------------------------------------------------------
 
@@ -506,17 +506,17 @@ CREATE TABLE `venta` (
   `id_venta` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
   `numfact` int(11) NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `estado` char(1) NOT NULL,
   `id_due` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
-  `tipoc` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `tipopa` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `numtarj` char(20) COLLATE utf8_unicode_ci NOT NULL,
-  `typetarj` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `nomtarj` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `expmon` char(1) COLLATE utf8_unicode_ci NOT NULL,
-  `expyear` char(2) COLLATE utf8_unicode_ci NOT NULL,
-  `cvc` char(4) COLLATE utf8_unicode_ci NOT NULL,
+  `tipoc` varchar(25) NOT NULL,
+  `tipopa` varchar(25) NOT NULL,
+  `numtarj` char(20) NOT NULL,
+  `typetarj` varchar(20) NOT NULL,
+  `nomtarj` varchar(40) NOT NULL,
+  `expmon` char(1) NOT NULL,
+  `expyear` char(2) NOT NULL,
+  `cvc` char(4) NOT NULL,
   `recibir` decimal(10,2) NOT NULL,
   `cambio` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -526,10 +526,10 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`id_venta`, `fecha`, `numfact`, `estado`, `id_due`, `total`, `tipoc`, `tipopa`, `numtarj`, `typetarj`, `nomtarj`, `expmon`, `expyear`, `cvc`, `recibir`, `cambio`) VALUES
-(1, '2021-12-25 18:11:37', 1, '1', 8, '21.00', 'Boleta', 'efectivo', '', '', '', '', '', '', '100.00', '79.00'),
-(2, '2021-12-25 19:55:06', 2, '1', 8, '93.00', 'Boleta', 'efectivo', '', '', '', '', '', '', '100.00', '7.00'),
-(3, '2021-12-25 21:36:59', 3, '1', 6, '153.00', 'Boleta', 'efectivo', '', '', '', '', '', '', '200.00', '47.00'),
-(4, '2021-12-26 00:02:49', 4, '1', 7, '135.00', 'Boleta', 'efectivo', '3455 656565 65656', 'AMEX', '', '9', '22', '2222', '200.00', '65.00');
+(1, '2021-12-25 18:11:37', 1, '1', 8, 21.00, 'Boleta', 'efectivo', '', '', '', '', '', '', 100.00, 79.00),
+(2, '2021-12-25 19:55:06', 2, '1', 8, 93.00, 'Boleta', 'efectivo', '', '', '', '', '', '', 100.00, 7.00),
+(3, '2021-12-25 21:36:59', 3, '1', 6, 153.00, 'Boleta', 'efectivo', '', '', '', '', '', '', 200.00, 47.00),
+(4, '2021-12-26 00:02:49', 4, '1', 7, 135.00, 'Boleta', 'efectivo', '3455 656565 65656', 'AMEX', '', '9', '22', '2222', 200.00, 65.00);
 
 -- --------------------------------------------------------
 
@@ -539,19 +539,19 @@ INSERT INTO `venta` (`id_venta`, `fecha`, `numfact`, `estado`, `id_due`, `total`
 
 CREATE TABLE `veterinarian` (
   `id_vet` int(11) NOT NULL,
-  `dnivet` char(8) COLLATE utf8_unicode_ci NOT NULL,
-  `nomvet` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
-  `apevet` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
-  `direcc` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `sexo` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `correo` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `foto` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `fijo` char(6) COLLATE utf8_unicode_ci NOT NULL,
-  `movil` char(9) COLLATE utf8_unicode_ci NOT NULL,
-  `usuario` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `contra` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `dnivet` char(8) NOT NULL,
+  `nomvet` varchar(35) NOT NULL,
+  `apevet` varchar(35) NOT NULL,
+  `direcc` varchar(50) NOT NULL,
+  `sexo` varchar(15) NOT NULL,
+  `correo` varchar(40) NOT NULL,
+  `foto` varchar(255) NOT NULL,
+  `fijo` char(6) NOT NULL,
+  `movil` char(9) NOT NULL,
+  `usuario` varchar(25) NOT NULL,
+  `contra` varchar(255) NOT NULL,
   `cargo` int(11) NOT NULL,
-  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `estado` char(1) NOT NULL,
   `fere` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
