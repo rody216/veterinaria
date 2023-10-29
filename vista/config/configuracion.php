@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Vetdog V.1 | Vetdog - Vetdog Admin Template</title>
+    <title>Desboard</title>
     <!-- Google Font - Iconos -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -95,12 +95,14 @@
                     <img src="../../assets/img/mujerico.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
+                
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo ucfirst($_SESSION['nombre']); ?></div>
                     <div class="email"><?php echo ucfirst($_SESSION['correo']); ?></div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
                             <li><a href="../config/configuracion"><i class="material-icons">brightness_low</i>Mi Cuenta</a></li>
+                            <li><a href="../config/usuario.php"><i class="material-icons">brightness_low</i>Usuario</a></li>
                             <li role="separator" class="divider"></li>
                             <li role="separator" class="divider"></li>
 
